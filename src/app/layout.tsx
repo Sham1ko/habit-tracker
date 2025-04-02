@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
 import { MobileNavbar } from "@/components/mobile-navbar";
+import { ThemeProvider } from "next-themes";
 
 const urbanist = Urbanist({
   variable: "--font-urbanist",
@@ -19,10 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${urbanist.variable} antialiased min-h-screen pb-14`}>
-        {children}
-        <MobileNavbar />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${urbanist.variable} antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          enableSystem={true}
+          disableTransitionOnChange
+        >
+          {children}
+          <MobileNavbar />
+        </ThemeProvider>
       </body>
     </html>
   );

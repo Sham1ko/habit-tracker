@@ -11,7 +11,7 @@ export function MobileNavbar() {
   const nav = [
     { href: "/dashboard", label: "Home", icon: Home },
     { href: "/habits/new", label: "New", icon: PlusCircle },
-    { href: "/profile", label: "Profile", icon: User },
+    { href: "/settings", label: "Profile", icon: User },
   ];
 
   return (

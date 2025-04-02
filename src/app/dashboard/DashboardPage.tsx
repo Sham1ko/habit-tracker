@@ -13,6 +13,7 @@ import { markHabitAsCompleted, logout } from "../actions";
 import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
 import AddTaskDrawer from "@/components/add-task-drawer";
 import { AddHabitDrawer } from "@/components/add-habit-drawer";
+import { useTheme } from "next-themes";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   const result: { date: string; count: number; level: number }[] = [];
@@ -62,6 +63,9 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
   const completionPercentage =
     habits.length > 0 ? Math.round((completedCount / habits.length) * 100) : 0;
 
+  // theme
+  const { setTheme, resolvedTheme } = useTheme();
+
   return (
     <main className="max-w-2xl mx-auto mt-10 px-4 space-y-4 pb-24">
       <div className="flex items-center justify-between">
@@ -75,7 +79,7 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
         <AddHabitDrawer />
       </div>
 
-      {habits.length > 0 && (
+      {/* {habits.length > 0 && (
         <Card className="py-4">
           <CardContent className="p-4">
             <div className="flex justify-between text-sm ">
@@ -87,7 +91,7 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
             <Progress value={completionPercentage} className="h-2" />
           </CardContent>
         </Card>
-      )}
+      )} */}
 
       <Tabs defaultValue="current" className="mt-4">
         <TabsList className="grid w-full grid-cols-2">
@@ -107,8 +111,8 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
             </div>
           ) : (
             habits.map((habit) => (
-              <Card key={habit.id} className="p-4">
-                <div className="flex justify-between items-center mb-2">
+              <Card key={habit.id} className="p-4 gap-2">
+                <div className="flex justify-between items-center">
                   <div>
                     <h3 className="font-semibold text-lg">{habit.title}</h3>
                     <p className="text-sm text-muted-foreground">
@@ -121,14 +125,18 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
                       router.refresh();
                     }}
                   >
-                    <Button size="icon" variant="outline">
+                    <Button size="icon" variant="default">
                       <Check className="h-4 w-4" />
                     </Button>
                   </form>
                 </div>
                 <ActivityCalendar
                   data={mapActivitiesToCalendarData(habit.activities)}
-                  colorScheme="light"
+                  colorScheme={
+                    resolvedTheme === "light" || resolvedTheme === "dark"
+                      ? resolvedTheme
+                      : undefined
+                  }
                   theme={{
                     light: [
                       "#e0e0e0",
@@ -168,11 +176,11 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
         </TabsContent>
       </Tabs>
 
-      <form action={logout} className="pt-10">
+      {/* <form action={logout} className="pt-10">
         <Button type="submit" variant="destructive" className="w-full">
           Log out
         </Button>
-      </form>
+      </form> */}
     </main>
   );
 }
