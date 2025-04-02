@@ -1,17 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ActivityCalendar } from "react-activity-calendar";
 import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
 
-import { markHabitAsCompleted, logout } from "../actions";
-import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
-import AddTaskDrawer from "@/components/add-task-drawer";
+import { markHabitAsCompleted } from "../actions";
 import { AddHabitDrawer } from "@/components/add-habit-drawer";
 import { useTheme } from "next-themes";
 
@@ -54,17 +52,17 @@ type Habit = {
 export default function DashboardPage({ habits }: { habits: Habit[] }) {
   const router = useRouter();
 
-  const completedCount = habits.filter((h) =>
-    h.activities.some(
-      (a) => new Date(a.date).toDateString() === new Date().toDateString()
-    )
-  ).length;
+  // const completedCount = habits.filter((h) =>
+  //   h.activities.some(
+  //     (a) => new Date(a.date).toDateString() === new Date().toDateString()
+  //   )
+  // ).length;
 
-  const completionPercentage =
-    habits.length > 0 ? Math.round((completedCount / habits.length) * 100) : 0;
+  // const completionPercentage =
+  //   habits.length > 0 ? Math.round((completedCount / habits.length) * 100) : 0;
 
   // theme
-  const { setTheme, resolvedTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   return (
     <main className="max-w-2xl mx-auto mt-10 px-4 space-y-4 pb-24">

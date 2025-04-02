@@ -21,7 +21,7 @@ const initialState = { error: "" };
 
 export default function LoginPage() {
   const [loginState, loginAction] = useActionState(login, initialState);
-  const [signupState, signupAction] = useActionState(signup, initialState);
+  const [signupState] = useActionState(signup, initialState);
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-gray-50 px-4">

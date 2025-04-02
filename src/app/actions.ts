@@ -53,7 +53,7 @@ export async function loginWithGoogle() {
   });
 }
 
-export async function createHabit(_: any, formData: FormData) {
+export async function createHabit(_: unknown, formData: FormData) {
   const supabase = await createClient();
   const {
     data: { user },
