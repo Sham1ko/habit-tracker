@@ -10,6 +10,9 @@ import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
 
 import { markHabitAsCompleted, logout } from "../actions";
+import { Drawer, DrawerTrigger } from "@/components/ui/drawer";
+import AddTaskDrawer from "@/components/add-task-drawer";
+import { AddHabitDrawer } from "@/components/add-habit-drawer";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   const result: { date: string; count: number; level: number }[] = [];
@@ -21,10 +24,10 @@ function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   }, {} as Record<string, number>);
 
   const currentYear = new Date().getFullYear();
-  const firstDay = `${currentYear}-01-01`;
+  //   const firstDay = `${currentYear}-01-01`;
   const lastDay = `${currentYear}-12-31`;
 
-  grouped[firstDay] = grouped[firstDay] || 0;
+  //   grouped[firstDay] = grouped[firstDay] || 0;
   grouped[lastDay] = grouped[lastDay] || 0;
 
   for (const [date, count] of Object.entries(grouped)) {
@@ -60,18 +63,22 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
     habits.length > 0 ? Math.round((completedCount / habits.length) * 100) : 0;
 
   return (
-    <main className="max-w-2xl mx-auto mt-10 px-4 space-y-6 pb-24">
+    <main className="max-w-2xl mx-auto mt-10 px-4 space-y-4 pb-24">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Your Habits</h1>
-        <Link href="/habits/new">
-          <Button>Add Habit</Button>
-        </Link>
+        {/* <Drawer>
+          <DrawerTrigger asChild>
+            <Button>Add Habit</Button>
+          </DrawerTrigger>
+          <AddTaskDrawer />
+        </Drawer> */}
+        <AddHabitDrawer />
       </div>
 
       {habits.length > 0 && (
-        <Card>
+        <Card className="py-4">
           <CardContent className="p-4">
-            <div className="flex justify-between text-sm mb-2">
+            <div className="flex justify-between text-sm ">
               <span>
                 {completedCount} of {habits.length} completed
               </span>
@@ -122,6 +129,15 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
                 <ActivityCalendar
                   data={mapActivitiesToCalendarData(habit.activities)}
                   colorScheme="light"
+                  theme={{
+                    light: [
+                      "#e0e0e0",
+                      "#a3d8a3",
+                      "#78c78f",
+                      "#4dbb7f",
+                      "#26a65b",
+                    ],
+                  }}
                 />
               </Card>
             ))
