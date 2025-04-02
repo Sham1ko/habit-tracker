@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -12,26 +11,26 @@ datasource db {
 }
 
 model User {
-  id     String  @id @default(uuid())
-  email  String  @unique
-  habits Habit[]
+  id    String @id @default(uuid())
+  email String @unique
 }
 
 model Habit {
-  id        String       @id @default(uuid())
-  userId    String
-  title     String
-  frequency String
-  createdAt DateTime     @default(now())
-  entries   HabitEntry[]
-
-  user User @relation(fields: [userId], references: [id])
+  id          String     @id @default(uuid())
+  userId      String
+  title       String
+  description String?
+  frequency   String
+  createdAt   DateTime   @default(now())
+  activities  Activity[]
 }
 
-model HabitEntry {
+model Activity {
   id      String   @id @default(uuid())
   habitId String
   date    DateTime
 
   habit Habit @relation(fields: [habitId], references: [id])
+
+  @@unique([habitId, date]) // только одна активность в день
 }
