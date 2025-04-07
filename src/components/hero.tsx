@@ -14,7 +14,8 @@ export function Hero(props: {
   secondaryCtaLink: string;
 }) {
   return (
-    <section className="space-y-6 py-32 md:py-48 lg:py-52">
+    // <section className="space-y-5 py-32 md:py-48 lg:py-52">
+    <section className="min-h-screen flex items-center">
       <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
         <Link
           href={props.capsuleLink}

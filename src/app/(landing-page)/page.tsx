@@ -27,28 +27,27 @@ export default async function IndexPage() {
       <Hero
         capsuleText="100% Open-source & Free"
         capsuleLink="https://stacktemplate.com"
-        title="A Multi-tenant Next.js Starter Template"
-        subtitle="Built for developers, by developers. Next.js + Shadcn UI + Stack Auth."
+        title="Build better habits, one day at a time."
+        subtitle="A minimalist habit tracker built with Next.js, Supabase, and Prisma. Start tracking your daily goals and stay consistent — no fluff, just progress."
         primaryCtaText="Get Started"
-        primaryCtaLink={"stackServerApp.urls.signUp"}
+        primaryCtaLink="login"
         secondaryCtaText="GitHub"
-        secondaryCtaLink="https://github.com/stack-auth/stack-template"
+        secondaryCtaLink="https://github.com/Sham1ko/habit-tracker"
         credits={
           <>
             Crafted with ❤️ by{" "}
             <a
-              href="https://stack-auth.com"
+              href="https://github.com/Sham1ko"
               target="_blank"
               rel="noreferrer"
               className="underline"
             >
-              Stack Auth
+              Sham1ko
             </a>
           </>
         }
       />
 
-      <div id="features" />
       <FeatureGrid
         title="Features"
         subtitle="Unlock powerful capabilities for your project."
@@ -102,40 +101,41 @@ export default async function IndexPage() {
           {
             icon: (
               <svg
-                width="201"
-                height="242"
-                viewBox="0 0 201 242"
                 fill="none"
+                height="15"
+                viewBox="0 0 15 15"
+                width="15"
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-12 w-12 fill-current"
               >
-                <path d="M104.004 1.78785C101.751 0.662376 99.1002 0.663161 96.8483 1.78998L4.9201 47.7892C2.21103 49.1448 0.5 51.9143 0.5 54.9436V130.526C0.5 133.556 2.2123 136.327 4.92292 137.682L96.9204 183.67C99.1725 184.796 101.823 184.796 104.075 183.67L168.922 151.246C174.242 148.587 180.5 152.455 180.5 158.402V168.855C180.5 171.885 178.788 174.655 176.078 176.01L104.077 212.011C101.825 213.137 99.1745 213.137 96.9224 212.012L12.0771 169.598C6.75791 166.939 0.5 170.807 0.5 176.754V187.048C0.5 190.083 2.21689 192.856 4.93309 194.209L97.0051 240.072C99.2529 241.191 101.896 241.191 104.143 240.07L196.071 194.21C198.785 192.857 200.5 190.084 200.5 187.052V119.487C200.5 113.54 194.242 109.672 188.922 112.332L132.078 140.754C126.758 143.414 120.5 139.546 120.5 133.599V123.145C120.5 120.115 122.212 117.345 124.922 115.99L196.078 80.4124C198.788 79.0573 200.5 76.2872 200.5 73.257V54.9468C200.5 51.9158 198.787 49.1451 196.076 47.7904L104.004 1.78785Z" />
+                <path
+                  d="m8 1.5c0-.21735-.14042-.40981-.34741-.47614-.20699-.066336-.43312.00865-.55945.18553l-5 7c-.10887.1524-.12342.35287-.03772.51941.0857.16653.25729.2712.44458.2712h4.5v4.5c0 .2174.14043.4098.34741.4762.20699.0663.43312-.0087.55946-.1856l5.00003-6.99998c.1088-.1524.1234-.35287.0377-.51941-.0857-.16653-.2573-.27121-.4446-.27121h-4.5zm0 5.5v4.9398l3.5284-4.9398zm-1 1v-4.93976l-3.5284 4.93976z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                />
               </svg>
             ),
-            title: "Stack Auth",
+            title: "Supabase",
             description:
-              "Comprehensive Authentication: OAuth, User Management, and more.",
+              "Open-source Firebase alternative. Auth, Database, Storage.",
           },
           {
-            icon: <Users className="h-12 w-12" />,
-            title: "Multi-tenancy & RBAC",
-            description: "Built-in Teams and Permissions.",
-          },
-          // {
-          //   icon: <GitHubLogoIcon className="h-12 w-12" />,
-          //   title: "100% Open-source",
-          //   description: "Open-source and self-hostable codebase.",
-          // },
-          {
-            icon: <ComponentIcon className="h-12 w-12" />,
-            title: "Modular Design",
-            description: "Easily extend and customize. No spaghetti code.",
+            icon: (
+              <svg
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="currentColor"
+                className="w-12 h-12 fill-current"
+              >
+                <path d="M25.21,24.21,12.739,27.928a.525.525,0,0,1-.667-.606L16.528,5.811a.43.43,0,0,1,.809-.094l8.249,17.661A.6.6,0,0,1,25.21,24.21Zm2.139-.878L17.8,2.883h0A1.531,1.531,0,0,0,16.491,2a1.513,1.513,0,0,0-1.4.729L4.736,19.648a1.592,1.592,0,0,0,.018,1.7l5.064,7.909a1.628,1.628,0,0,0,1.83.678l14.7-4.383a1.6,1.6,0,0,0,1-2.218Z" />
+              </svg>
+            ),
+            title: "Prisma ORM",
+            description: "Type-safe database access with Prisma Client.",
           },
         ]}
       />
-
-      <div id="pricing" />
-      <PricingGrid
+      {/* <PricingGrid
         title="Pricing"
         subtitle="Flexible plans for every team."
         items={[
@@ -183,7 +183,7 @@ export default async function IndexPage() {
             buttonHref: "stackServerApp.urls.signUp",
           },
         ]}
-      />
+      /> */}
     </>
   );
 }

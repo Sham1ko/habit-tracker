@@ -24,8 +24,8 @@ export default function LoginPage() {
   const [signupState] = useActionState(signup, initialState);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-50 px-4">
-      <Card className="w-full max-w-md shadow-xl border-gray-100">
+    <div className="flex h-screen w-screen items-center justify-center ">
+      <Card className="w-full max-w-md shadow-xl border-gray-100 dark:border-gray-700">
         <CardHeader className="text-center space-y-2">
           <CardTitle className="text-2xl">Sign In</CardTitle>
           <CardDescription>
@@ -88,11 +88,11 @@ export default function LoginPage() {
           </form>
         </CardContent>
 
-        <CardFooter className="justify-center text-sm text-gray-600">
+        <CardFooter className="justify-center text-sm text-gray-600 dark:text-gray-400">
           Don’t have an account?
           <Link
             href="/register"
-            className="ml-1 font-semibold text-gray-800 hover:underline"
+            className="ml-1 font-semibold text-gray-800 hover:underline dark:text-gray-200"
           >
             Sign up
           </Link>
