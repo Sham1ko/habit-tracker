@@ -1,9 +1,7 @@
 import { FeatureGrid } from "@/components/features";
 import { Hero } from "@/components/hero";
-import { PricingGrid } from "@/components/pricing";
 // import { stackServerApp } from "@/stack";
 // import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { ComponentIcon, Users } from "lucide-react";
 
 export default async function IndexPage() {
   // const project = await stackServerApp.getProject();

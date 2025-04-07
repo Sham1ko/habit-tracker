@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "next-themes";
 import { LandingPageHeader } from "@/components/landing-page-header";
-import { MobileNavbar } from "@/components/mobile-navbar";
+// import { MobileNavbar } from "@/components/mobile-navbar";
 
 export default function LandingLayout({
   children,
