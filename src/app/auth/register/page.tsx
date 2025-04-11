@@ -23,8 +23,8 @@ export default function RegisterPage() {
   const [signupState, signupAction] = useActionState(signup, initialState);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-gray-50 px-4">
-      <Card className="w-full max-w-md shadow-xl border-gray-100">
+    <div className="flex w-screen items-center justify-center px-4">
+      <Card className="w-full max-w-md shadow-xl border-gray-100 dark:border-gray-700">
         <CardHeader className="text-center space-y-2">
           <CardTitle className="text-2xl">Sign Up</CardTitle>
           <CardDescription>
@@ -32,7 +32,7 @@ export default function RegisterPage() {
           </CardDescription>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="space-y-6">
           <form action={signupAction} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -65,7 +65,11 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          <Separator className="my-6" />
+          <div className="flex items-center gap-4">
+            <Separator className="flex-1" />
+            <span className="text-muted-foreground">or</span>
+            <Separator className="flex-1" />
+          </div>
 
           <form action={loginWithGoogle}>
             <Button
@@ -79,11 +83,11 @@ export default function RegisterPage() {
           </form>
         </CardContent>
 
-        <CardFooter className="justify-center text-sm text-gray-600">
+        <CardFooter className="justify-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{" "}
           <Link
-            href="/login"
-            className="ml-1 font-semibold text-gray-800 hover:underline"
+            href="login"
+            className="ml-1 font-semibold text-gray-800 hover:underline dark:text-gray-200"
           >
             Sign in
           </Link>

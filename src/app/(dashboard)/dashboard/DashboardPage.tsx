@@ -9,9 +9,9 @@ import { ActivityCalendar } from "react-activity-calendar";
 import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
 
-import { markHabitAsCompleted } from "../actions";
-import { AddHabitDrawer } from "@/components/add-habit-drawer";
 import { useTheme } from "next-themes";
+import { markHabitAsCompleted } from "@/app/actions";
+import { useState, useEffect } from "react";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   const result: { date: string; count: number; level: number }[] = [];
@@ -51,45 +51,18 @@ type Habit = {
 
 export default function DashboardPage({ habits }: { habits: Habit[] }) {
   const router = useRouter();
-
-  // const completedCount = habits.filter((h) =>
-  //   h.activities.some(
-  //     (a) => new Date(a.date).toDateString() === new Date().toDateString()
-  //   )
-  // ).length;
-
-  // const completionPercentage =
-  //   habits.length > 0 ? Math.round((completedCount / habits.length) * 100) : 0;
-
-  // theme
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <main className="max-w-2xl mx-auto mt-10 px-4 space-y-4 pb-24">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Your Habits</h1>
-        {/* <Drawer>
-          <DrawerTrigger asChild>
-            <Button>Add Habit</Button>
-          </DrawerTrigger>
-          <AddTaskDrawer />
-        </Drawer> */}
-        <AddHabitDrawer />
       </div>
-
-      {/* {habits.length > 0 && (
-        <Card className="py-4">
-          <CardContent className="p-4">
-            <div className="flex justify-between text-sm ">
-              <span>
-                {completedCount} of {habits.length} completed
-              </span>
-              <span>{completionPercentage}%</span>
-            </div>
-            <Progress value={completionPercentage} className="h-2" />
-          </CardContent>
-        </Card>
-      )} */}
 
       <Tabs defaultValue="current" className="mt-4">
         <TabsList className="grid w-full grid-cols-2">
@@ -128,23 +101,32 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
                     </Button>
                   </form>
                 </div>
-                <ActivityCalendar
-                  data={mapActivitiesToCalendarData(habit.activities)}
-                  colorScheme={
-                    resolvedTheme === "light" || resolvedTheme === "dark"
-                      ? resolvedTheme
-                      : undefined
-                  }
-                  theme={{
-                    light: [
-                      "#e0e0e0",
-                      "#a3d8a3",
-                      "#78c78f",
-                      "#4dbb7f",
-                      "#26a65b",
-                    ],
-                  }}
-                />
+                {mounted && (
+                  <ActivityCalendar
+                    data={mapActivitiesToCalendarData(habit.activities)}
+                    colorScheme={
+                      resolvedTheme === "light" || resolvedTheme === "dark"
+                        ? resolvedTheme
+                        : undefined
+                    }
+                    theme={{
+                      light: [
+                        "#e0e0e0",
+                        "#a3d8a3",
+                        "#78c78f",
+                        "#4dbb7f",
+                        "#26a65b",
+                      ],
+                      dark: [
+                        "hsl(0, 0%, 22%)",
+                        "#4dbb7f",
+                        "#78c78f",
+                        "#a3d8a3",
+                        "#e0e0e0",
+                      ],
+                    }}
+                  />
+                )}
               </Card>
             ))
           )}
@@ -162,10 +144,7 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
               <Card key={habit.id} className="p-4">
                 <p className="text-sm mb-1">{habit.title}</p>
                 <Progress
-                  value={Math.min(
-                    habit.activities.length * 10, // примерный прогресс
-                    100
-                  )}
+                  value={Math.min(habit.activities.length * 10, 100)}
                   className="h-2"
                 />
               </Card>
@@ -173,12 +152,6 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
           )}
         </TabsContent>
       </Tabs>
-
-      {/* <form action={logout} className="pt-10">
-        <Button type="submit" variant="destructive" className="w-full">
-          Log out
-        </Button>
-      </form> */}
     </main>
   );
 }

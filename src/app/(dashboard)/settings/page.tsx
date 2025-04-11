@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { logout } from "../actions";
+import { logout } from "@/app/actions";
 import { Switch } from "@/components/ui/switch";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -10,8 +10,6 @@ export default function SettingsPage() {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
-
-  console.log("resolvedTheme", resolvedTheme);
 
   useEffect(() => {
     setMounted(true);
@@ -41,15 +39,10 @@ export default function SettingsPage() {
 
       {/* Theme toggle */}
       <div className="flex items-center justify-between rounded-lg border p-4">
-        <span className="text-sm font-medium">
-          {resolvedTheme === "dark" ? "Dark mode" : "Light mode"}
-        </span>
+        <span className="text-sm font-medium">Dark mode</span>
         <Switch
           checked={resolvedTheme === "dark"}
-          onCheckedChange={(val) => {
-            console.log(val);
-            setTheme(val ? "dark" : "light");
-          }}
+          onCheckedChange={(val) => setTheme(val ? "dark" : "light")}
         />
       </div>
 

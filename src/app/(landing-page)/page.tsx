@@ -1,25 +1,7 @@
 import { FeatureGrid } from "@/components/features";
 import { Hero } from "@/components/hero";
-// import { stackServerApp } from "@/stack";
-// import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
 export default async function IndexPage() {
-  // const project = await stackServerApp.getProject();
-  // if (!project.config.clientTeamCreationEnabled) {
-  //   return (
-  //     <div className="w-full min-h-96 flex items-center justify-center">
-  //       <div className="max-w-xl gap-4">
-  //         <p className="font-bold text-xl">Setup Required</p>
-  //         <p className="">
-  //           {
-  //             "To start using this project, please enable client-side team creation in the Stack Auth dashboard (Project > Team Settings). This message will disappear once the feature is enabled."
-  //           }
-  //         </p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
   return (
     <>
       <Hero
@@ -28,7 +10,7 @@ export default async function IndexPage() {
         title="Build better habits, one day at a time."
         subtitle="A minimalist habit tracker built with Next.js, Supabase, and Prisma. Start tracking your daily goals and stay consistent — no fluff, just progress."
         primaryCtaText="Get Started"
-        primaryCtaLink="login"
+        primaryCtaLink="auth/login"
         secondaryCtaText="GitHub"
         secondaryCtaLink="https://github.com/Sham1ko/habit-tracker"
         credits={
@@ -133,55 +115,6 @@ export default async function IndexPage() {
           },
         ]}
       />
-      {/* <PricingGrid
-        title="Pricing"
-        subtitle="Flexible plans for every team."
-        items={[
-          {
-            title: "Basic",
-            price: "Free",
-            description: "For individuals and small projects.",
-            features: [
-              "Full source code",
-              "100% Open-source",
-              "Community support",
-              "Free forever",
-              "No credit card required",
-            ],
-            buttonText: "Get Started",
-            buttonHref: "stackServerApp.urls.signUp",
-          },
-          {
-            title: "Pro",
-            price: "$0.00",
-            description: "Ideal for growing teams and businesses.",
-            features: [
-              "Full source code",
-              "100% Open-source",
-              "Community support",
-              "Free forever",
-              "No credit card required",
-            ],
-            buttonText: "Upgrade to Pro",
-            isPopular: true,
-            buttonHref: "stackServerApp.urls.signUp",
-          },
-          {
-            title: "Enterprise",
-            price: "Still Free",
-            description: "For large organizations.",
-            features: [
-              "Full source code",
-              "100% Open-source",
-              "Community support",
-              "Free forever",
-              "No credit card required",
-            ],
-            buttonText: "Contact Us",
-            buttonHref: "stackServerApp.urls.signUp",
-          },
-        ]}
-      /> */}
     </>
   );
 }

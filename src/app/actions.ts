@@ -9,7 +9,7 @@ import { startOfToday } from "date-fns";
 export async function logout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  redirect("/");
 }
 
 export async function login(_: unknown, formData: FormData) {

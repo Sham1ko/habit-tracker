@@ -10,9 +10,11 @@ export default function AuthLayout({
 }) {
   return (
     <ThemeProvider attribute="class" enableSystem disableTransitionOnChange>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-zinc-900 text-black dark:text-white">
+      <div className="bg-gray-100 dark:bg-zinc-900 text-black dark:text-white">
         <AuthHeader />
-        {children}
+        <main className="flex items-center justify-center min-h-screen pt-14">
+          {children}
+        </main>
       </div>
     </ThemeProvider>
   );

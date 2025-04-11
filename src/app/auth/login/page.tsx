@@ -24,7 +24,7 @@ export default function LoginPage() {
   const [signupState] = useActionState(signup, initialState);
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center ">
+    <div className="flex  w-screen items-center justify-center">
       <Card className="w-full max-w-md shadow-xl border-gray-100 dark:border-gray-700">
         <CardHeader className="text-center space-y-2">
           <CardTitle className="text-2xl">Sign In</CardTitle>
@@ -45,7 +45,6 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
@@ -56,18 +55,14 @@ export default function LoginPage() {
                 required
               />
             </div>
-
             {(loginState.error || signupState.error) && (
               <p className="text-sm text-red-500">
                 {loginState.error || signupState.error}
               </p>
             )}
-
-            <div className="flex gap-2 pt-2">
-              <Button type="submit" formAction={loginAction} className="w-full">
-                Log in
-              </Button>{" "}
-            </div>
+            <Button type="submit" formAction={loginAction} className="w-full">
+              Log in
+            </Button>{" "}
           </form>
 
           <div className="flex items-center gap-4">
@@ -91,7 +86,7 @@ export default function LoginPage() {
         <CardFooter className="justify-center text-sm text-gray-600 dark:text-gray-400">
           Don’t have an account?
           <Link
-            href="/register"
+            href="register"
             className="ml-1 font-semibold text-gray-800 hover:underline dark:text-gray-200"
           >
             Sign up
