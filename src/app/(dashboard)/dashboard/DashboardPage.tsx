@@ -1,47 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ActivityCalendar } from "react-activity-calendar";
 import { Progress } from "@/components/ui/progress";
-import { useRouter } from "next/navigation";
-
-import { useTheme } from "next-themes";
-import { deleteHabit, markHabitAsCompleted } from "@/app/actions";
-import { useState, useEffect } from "react";
+import { deleteHabit } from "@/app/actions";
 import { HabitCard } from "@/components/habit-card";
-
-function mapActivitiesToCalendarData(activities: { date: Date }[]) {
-  const result: { date: string; count: number; level: number }[] = [];
-
-  const grouped = activities.reduce((acc, act) => {
-    const dateStr = new Date(act.date).toISOString().split("T")[0];
-    acc[dateStr] = (acc[dateStr] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
-
-  const currentYear = new Date().getFullYear();
-  //   const firstDay = `${currentYear}-01-01`;
-  const lastDay = `${currentYear}-12-31`;
-
-  //   grouped[firstDay] = grouped[firstDay] || 0;
-  grouped[lastDay] = grouped[lastDay] || 0;
-
-  for (const [date, count] of Object.entries(grouped)) {
-    result.push({
-      date,
-      count,
-      level: Math.min(count, 4),
-    });
-  }
-
-  return result.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-}
 
 type Habit = {
   id: string;
@@ -51,14 +16,6 @@ type Habit = {
 };
 
 export default function DashboardPage({ habits }: { habits: Habit[] }) {
-  const router = useRouter();
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <main className="max-w-2xl mx-auto mt-10 px-4 space-y-4 pb-24">
       <div className="flex items-center justify-between">

@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, MoreVertical } from "lucide-react";
+import { MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -13,8 +13,6 @@ import {
 import { ActivityCalendar } from "react-activity-calendar";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { markHabitAsCompleted } from "@/app/actions";
 import { CompleteHabitButton } from "./complete-habit-button";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
@@ -61,7 +59,6 @@ export function HabitCard({
 }) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const timeout = setTimeout(() => setMounted(true), 500);
