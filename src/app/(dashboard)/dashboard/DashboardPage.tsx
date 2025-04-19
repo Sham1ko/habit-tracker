@@ -10,8 +10,9 @@ import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
 
 import { useTheme } from "next-themes";
-import { markHabitAsCompleted } from "@/app/actions";
+import { deleteHabit, markHabitAsCompleted } from "@/app/actions";
 import { useState, useEffect } from "react";
+import { HabitCard } from "@/components/habit-card";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   const result: { date: string; count: number; level: number }[] = [];
@@ -82,52 +83,7 @@ export default function DashboardPage({ habits }: { habits: Habit[] }) {
             </div>
           ) : (
             habits.map((habit) => (
-              <Card key={habit.id} className="p-4 gap-2">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-semibold text-lg">{habit.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {habit.description || "No description"}
-                    </p>
-                  </div>
-                  <form
-                    action={async () => {
-                      await markHabitAsCompleted(habit.id);
-                      router.refresh();
-                    }}
-                  >
-                    <Button size="icon" variant="default">
-                      <Check className="h-4 w-4" />
-                    </Button>
-                  </form>
-                </div>
-                {mounted && (
-                  <ActivityCalendar
-                    data={mapActivitiesToCalendarData(habit.activities)}
-                    colorScheme={
-                      resolvedTheme === "light" || resolvedTheme === "dark"
-                        ? resolvedTheme
-                        : undefined
-                    }
-                    theme={{
-                      light: [
-                        "#e0e0e0",
-                        "#a3d8a3",
-                        "#78c78f",
-                        "#4dbb7f",
-                        "#26a65b",
-                      ],
-                      dark: [
-                        "hsl(0, 0%, 22%)",
-                        "#4dbb7f",
-                        "#78c78f",
-                        "#a3d8a3",
-                        "#e0e0e0",
-                      ],
-                    }}
-                  />
-                )}
-              </Card>
+              <HabitCard key={habit.id} habit={habit} onDelete={deleteHabit} />
             ))
           )}
         </TabsContent>

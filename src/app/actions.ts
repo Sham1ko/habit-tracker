@@ -128,3 +128,28 @@ function getTodayUTC(): Date {
   const d = now.getDate();
   return new Date(Date.UTC(y, m, d)); // 👈 создаём UTC-полночь
 }
+
+export async function deleteHabit(habitId: string) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return;
+
+  // Сначала удаляем все связанные activity
+  await prisma.activity.deleteMany({
+    where: {
+      habitId,
+    },
+  });
+
+  // Затем удаляем сам habit
+  await prisma.habit.delete({
+    where: {
+      id: habitId,
+    },
+  });
+
+  revalidatePath("/dashboard");
+}
