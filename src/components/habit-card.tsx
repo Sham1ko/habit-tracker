@@ -3,6 +3,7 @@
 import { Check, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +15,7 @@ import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { markHabitAsCompleted } from "@/app/actions";
+import { CompleteHabitButton } from "./complete-habit-button";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   const result: { date: string; count: number; level: number }[] = [];
@@ -62,7 +64,8 @@ export function HabitCard({
   const router = useRouter();
 
   useEffect(() => {
-    setMounted(true);
+    const timeout = setTimeout(() => setMounted(true), 500);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
@@ -76,17 +79,7 @@ export function HabitCard({
         </div>
 
         <div className="flex items-center gap-2">
-          <form
-            action={async () => {
-              await markHabitAsCompleted(habit.id);
-              router.refresh();
-            }}
-          >
-            <Button size="icon" variant="default">
-              <Check className="h-4 w-4" />
-            </Button>
-          </form>
-
+          <CompleteHabitButton habitId={habit.id} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
@@ -108,26 +101,30 @@ export function HabitCard({
         </div>
       </div>
 
-      {mounted && (
-        <ActivityCalendar
-          data={mapActivitiesToCalendarData(habit.activities)}
-          colorScheme={
-            resolvedTheme === "light" || resolvedTheme === "dark"
-              ? resolvedTheme
-              : undefined
-          }
-          theme={{
-            light: ["#e0e0e0", "#a3d8a3", "#78c78f", "#4dbb7f", "#26a65b"],
-            dark: [
-              "hsl(0, 0%, 22%)",
-              "#4dbb7f",
-              "#78c78f",
-              "#a3d8a3",
-              "#e0e0e0",
-            ],
-          }}
-        />
-      )}
+      <div className="mt-4">
+        {mounted ? (
+          <ActivityCalendar
+            data={mapActivitiesToCalendarData(habit.activities)}
+            colorScheme={
+              resolvedTheme === "light" || resolvedTheme === "dark"
+                ? resolvedTheme
+                : undefined
+            }
+            theme={{
+              light: ["#e0e0e0", "#a3d8a3", "#78c78f", "#4dbb7f", "#26a65b"],
+              dark: [
+                "hsl(0, 0%, 22%)",
+                "#4dbb7f",
+                "#78c78f",
+                "#a3d8a3",
+                "#e0e0e0",
+              ],
+            }}
+          />
+        ) : (
+          <Skeleton className="w-full h-[161px] rounded-md" />
+        )}
+      </div>
     </Card>
   );
 }
