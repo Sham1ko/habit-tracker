@@ -1,5 +1,6 @@
 import { Urbanist } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react"
 
 const urbanist = Urbanist({
   variable: "--font-urbanist",
@@ -13,6 +14,7 @@ export default function BaseLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <Analytics />
       <body className={`${urbanist.variable} antialiased`}>{children}</body>
     </html>
   );
