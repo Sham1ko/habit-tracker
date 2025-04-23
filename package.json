@@ -8,10 +8,10 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "prisma migrate dev --schema=src/prisma/schema.prisma",
-    "db:push": "prisma db push --schema=src/prisma/schema.prisma",
-    "db:studio": "prisma studio --schema=src/prisma/schema.prisma",
-    "db:generate": "prisma generate --schema=src/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=prisma/schema.prisma",
+    "db:push": "prisma db push --schema=prisma/schema.prisma",
+    "db:studio": "prisma studio --schema=prisma/schema.prisma",
+    "db:generate": "prisma generate --schema=prisma/schema.prisma",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   },
@@ -30,6 +30,7 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
     "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.486.0",
@@ -56,6 +57,6 @@
     "typescript": "^5.8.2"
   },
   "prisma": {
-    "schema": "src/prisma/schema.prisma"
+    "schema": "prisma/schema.prisma"
   }
 }
