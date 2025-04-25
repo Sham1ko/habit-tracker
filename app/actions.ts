@@ -9,7 +9,6 @@ import { startOfToday } from "date-fns";
 export async function logout() {
   const supabase = await createServerSupabaseClient();
   await supabase.auth.signOut();
-  redirect("/");
 }
 
 export async function login(_: unknown, formData: FormData) {
@@ -18,13 +17,16 @@ export async function login(_: unknown, formData: FormData) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
   if (error) {
-    return { error: error.message };
+    return { error };
   }
 
-  redirect("/dashboard");
+  return { error: null, user: data.user };
 }
 
 export async function signup(_: unknown, formData: FormData) {

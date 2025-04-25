@@ -6,7 +6,7 @@ export default async function IndexPage() {
     <>
       <Hero
         capsuleText="100% Open-source & Free"
-        capsuleLink="https://stacktemplate.com"
+        capsuleLink="https://github.com/Sham1ko/habit-tracker"
         title="Build better habits, one day at a time."
         subtitle="A minimalist habit tracker built with Next.js, Supabase, and Prisma. Start tracking your daily goals and stay consistent — no fluff, just progress."
         primaryCtaText="Get Started"

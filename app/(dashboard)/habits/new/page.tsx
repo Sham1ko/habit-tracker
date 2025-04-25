@@ -27,15 +27,15 @@ export default function NewHabitPage() {
   const [state, formAction] = useActionState(createHabit, initialState);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
-      <Card className="w-full max-w-md shadow-xl border-gray-100">
+    <div className="flex min-h-screen items-center justify-center px-0 md:px-4 ">
+      <Card className="w-full max-w-md shadow-xl">
         <CardHeader>
           <CardTitle>Create a New Habit</CardTitle>
         </CardHeader>
 
         <CardContent className="space-y-4">
           <form action={formAction} className="space-y-4">
-            <div>
+            <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
@@ -45,7 +45,7 @@ export default function NewHabitPage() {
               />
             </div>
 
-            <div>
+            <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
@@ -54,7 +54,7 @@ export default function NewHabitPage() {
               />
             </div>
 
-            <div>
+            <div className="space-y-2">
               <Label htmlFor="frequency">Frequency</Label>
               <Select name="frequency" required>
                 <SelectTrigger>

@@ -1,0 +1,101 @@
+"use client";
+
+import { login, loginWithGoogle } from "@/app/actions";
+import { useAuthStore } from "@/lib/stores/auth-store";
+import { useState, useTransition } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Icons } from "@/components/icons";
+import type { AuthError, User } from "@supabase/supabase-js";
+
+export default function LoginForm() {
+  const { setUser } = useAuthStore();
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
+
+  const handleLogin = (formData: FormData) => {
+    startTransition(async () => {
+      const res:
+        | { error: AuthError; user?: undefined }
+        | { error: null; user: User } = await login(undefined, formData);
+
+      if (res.error) {
+        setError(res.error.message);
+      } else if (res.user) {
+        setUser(res.user);
+      }
+      console.log("user", res.user);
+    });
+  };
+
+  return (
+    <>
+      {/* <button
+        onClick={async () => {
+          setUser(null);
+          await logout();
+        }}
+        className="mb-4 text-red-500"
+      >
+        Sign Out
+      </button> */}
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          handleLogin(formData);
+        }}
+        className="space-y-4"
+      >
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="••••••"
+            required
+          />
+        </div>
+
+        {error && <p className="text-sm text-red-500">{error}</p>}
+
+        <Button type="submit" className="w-full" disabled={isPending}>
+          {isPending ? "Loading..." : "Log in"}
+        </Button>
+      </form>
+
+      <div className="flex items-center gap-4 mt-6">
+        <Separator className="flex-1" />
+        <span className="text-sm text-muted-foreground">or</span>
+        <Separator className="flex-1" />
+      </div>
+
+      <form action={loginWithGoogle} className="mt-4">
+        <Button
+          variant="outline"
+          type="submit"
+          className="w-full flex items-center gap-2 justify-center"
+          disabled
+        >
+          <Icons.google className="h-5 w-5" />
+          Sign in with Google
+        </Button>
+      </form>
+    </>
+  );
+}

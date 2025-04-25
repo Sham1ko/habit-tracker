@@ -20,7 +20,7 @@ export function DesktopNavbar() {
   ];
 
   return (
-    <nav className="hidden md:flex justify-center w-full py-4 border-b border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm z-50">
+    <nav className="hidden md:flex fixed justify-center w-full py-4 border-b h-16 border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm z-50">
       <NavigationMenu>
         <NavigationMenuList className="gap-8">
           {nav.map(({ href, label, icon: Icon }) => (

@@ -28,7 +28,7 @@ export default function SettingsPage() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col p-4 max-w-2xl mx-auto mt-4 space-y-4">
+    <div className="flex flex-col max-w-2xl mx-auto space-y-4 mt-10 md:mt-20 md:px-0 px-4">
       <h1 className="text-3xl font-bold">Settings</h1>
 
       {/* User info */}

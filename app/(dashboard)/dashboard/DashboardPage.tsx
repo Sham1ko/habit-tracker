@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { Button } from "../../../components/ui/button";
 import { Card } from "../../../components/ui/card";
@@ -12,6 +11,7 @@ import {
 import { Progress } from "../../../components/ui/progress";
 import { deleteHabit } from "../../actions";
 import { HabitCard } from "../../../components/habit-card";
+import { useEffect, useState } from "react";
 
 type Habit = {
   id: string;
@@ -20,9 +20,41 @@ type Habit = {
   activities: { date: Date }[];
 };
 
-export default function DashboardPage({ habits }: { habits: Habit[] }) {
+export default function DashboardPage() {
+  const [habits, setHabits] = useState<Habit[]>([]);
+  const [loading, setLoading] = useState(true);
+  console.log(loading);
+  useEffect(() => {
+    const fetchHabits = async () => {
+      try {
+        await fetch("/api/habits", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error("Failed to fetch habits");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            setHabits(data);
+            setLoading(false);
+          });
+      } catch (error) {
+        console.error("Failed to fetch habits:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHabits();
+  }, []);
+
   return (
-    <main className="max-w-2xl mx-auto mt-10 px-4 space-y-4 pb-24">
+    <main className="max-w-2xl mx-auto mt-20 space-y-4 md:px-0 px-4">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Your Habits</h1>
       </div>

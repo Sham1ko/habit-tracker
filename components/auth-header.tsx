@@ -16,7 +16,7 @@ export default function AuthHeader() {
   if (!mounted) return null;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 px-4 h-14 flex items-center justify-between border-b bg-gray-100 dark:bg-zinc-900 text-black dark:text-white">
+    <header className="fixed top-0 left-0 w-full z-50 px-4 h-14 flex items-center justify-between border-b bg-white dark:bg-zinc-900 text-black dark:text-white">
       <Logo link="/" />
       <div className="flex items-center gap-4">
         <button
