@@ -1,5 +1,6 @@
 import { ThemeProvider } from "next-themes";
 import { LandingHeader } from "@/components/landing/landing-header";
+import { LandingFooter } from "@/components/landing/landing-footer";
 
 export default function LandingLayout({
   children,
@@ -20,6 +21,12 @@ export default function LandingLayout({
           ]}
         />
         <main className="flex-1">{children}</main>
+        <LandingFooter
+          builtBy="Sham1ko"
+          builtByLink="https://github.com/Sham1ko"
+          githubLink="https://github.com/Sham1ko/habit-tracker"
+          linkedinLink="https://www.linkedin.com/in/sham1ko/"
+        />
       </div>
     </ThemeProvider>
   );

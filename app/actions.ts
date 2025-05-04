@@ -9,6 +9,7 @@ import { startOfToday } from "date-fns";
 export async function logout() {
   const supabase = await createServerSupabaseClient();
   await supabase.auth.signOut();
+  redirect("/");
 }
 
 export async function login(_: unknown, formData: FormData) {
@@ -128,7 +129,7 @@ function getTodayUTC(): Date {
   const y = now.getFullYear();
   const m = now.getMonth();
   const d = now.getDate();
-  return new Date(Date.UTC(y, m, d)); // 👈 создаём UTC-полночь
+  return new Date(Date.UTC(y, m, d));
 }
 
 export async function deleteHabit(habitId: string) {
@@ -139,14 +140,20 @@ export async function deleteHabit(habitId: string) {
 
   if (!user) return;
 
-  // Сначала удаляем все связанные activity
+  const habit = await prisma.habit.findUnique({
+    where: { id: habitId },
+  });
+
+  if (!habit || habit.userId !== user.id) {
+    throw new Error("Unauthorized or habit not found.");
+  }
+
   await prisma.activity.deleteMany({
     where: {
       habitId,
     },
   });
 
-  // Затем удаляем сам habit
   await prisma.habit.delete({
     where: {
       id: habitId,
@@ -154,4 +161,6 @@ export async function deleteHabit(habitId: string) {
   });
 
   revalidatePath("/dashboard");
+
+  return { success: true };
 }

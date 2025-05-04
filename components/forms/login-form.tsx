@@ -2,46 +2,38 @@
 
 import { login, loginWithGoogle } from "@/app/actions";
 import { useAuthStore } from "@/lib/stores/auth-store";
-import { useState, useTransition } from "react";
+import { useState, useTransition, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Icons } from "@/components/icons";
-import type { AuthError, User } from "@supabase/supabase-js";
 
 export default function LoginForm() {
   const { setUser } = useAuthStore();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
-  const handleLogin = (formData: FormData) => {
-    startTransition(async () => {
-      const res:
-        | { error: AuthError; user?: undefined }
-        | { error: null; user: User } = await login(undefined, formData);
+  const handleLogin = useCallback(
+    (formData: FormData) => {
+      startTransition(async () => {
+        const res = await login(undefined, formData);
 
-      if (res.error) {
-        setError(res.error.message);
-      } else if (res.user) {
-        setUser(res.user);
-      }
-      console.log("user", res.user);
-    });
-  };
+        if (res.error) {
+          setError(res.error.message);
+        } else if (res.user) {
+          setUser(res.user);
+          router.push("/dashboard");
+        }
+      });
+    },
+    [setUser, router]
+  );
 
   return (
     <>
-      {/* <button
-        onClick={async () => {
-          setUser(null);
-          await logout();
-        }}
-        className="mb-4 text-red-500"
-      >
-        Sign Out
-      </button> */}
-
       <form
         onSubmit={(e) => {
           e.preventDefault();

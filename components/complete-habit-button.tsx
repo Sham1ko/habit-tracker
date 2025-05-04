@@ -2,23 +2,27 @@ import { Check, CheckCircle } from "lucide-react";
 import { useTransition, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "../lib/utils";
-import { useRouter } from "next/navigation";
 import { markHabitAsCompleted } from "../app/actions";
 
-export function CompleteHabitButton({ habitId }: { habitId: string }) {
+export function CompleteHabitButton({
+  habitId,
+  onRefresh,
+}: {
+  habitId: string;
+  onRefresh: () => void;
+}) {
   const [isPending, startTransition] = useTransition();
   const [completed, setCompleted] = useState(false);
-  const router = useRouter();
 
   const handleComplete = () => {
     startTransition(async () => {
       await markHabitAsCompleted(habitId);
       setCompleted(true);
-      router.refresh();
 
       setTimeout(() => {
         setCompleted(false);
       }, 1500);
+      onRefresh();
     });
   };
 

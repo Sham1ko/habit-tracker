@@ -14,6 +14,7 @@ import { ActivityCalendar } from "react-activity-calendar";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 import { CompleteHabitButton } from "./complete-habit-button";
+import { deleteHabit } from "@/app/actions";
 
 function mapActivitiesToCalendarData(activities: { date: Date }[]) {
   const result: { date: string; count: number; level: number }[] = [];
@@ -51,17 +52,17 @@ type Habit = {
 export function HabitCard({
   habit,
   onEdit,
-  onDelete,
+  onRefresh,
 }: {
   habit: Habit;
   onEdit?: (id: string) => void;
-  onDelete?: (id: string) => void;
+  onRefresh: () => void;
 }) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setMounted(true), 500);
+    const timeout = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(timeout);
   }, []);
 
@@ -76,7 +77,7 @@ export function HabitCard({
         </div>
 
         <div className="flex items-center gap-2">
-          <CompleteHabitButton habitId={habit.id} />
+          <CompleteHabitButton habitId={habit.id} onRefresh={onRefresh} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
@@ -88,7 +89,7 @@ export function HabitCard({
                 Edit
               </DropdownMenuItem>
               <DropdownMenuItem
-                onClick={() => onDelete?.(habit.id)}
+                onClick={() => deleteHabit(habit.id)}
                 className="text-red-600 focus:text-red-600"
               >
                 Delete

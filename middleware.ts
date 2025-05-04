@@ -24,10 +24,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // if (isAuthPage && user) {
-  //   const dashboardUrl = new URL("/dashboard", request.url);
-  //   return NextResponse.redirect(dashboardUrl);
-  // }
+  if (isAuthPage && user) {
+    const dashboardUrl = new URL("/dashboard", request.url);
+    return NextResponse.redirect(dashboardUrl);
+  }
 
   return response;
 }
