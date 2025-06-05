@@ -3,23 +3,16 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "../../../components/ui/button";
-import { Card } from "../../../components/ui/card";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "../../../components/ui/tabs";
-import { Progress } from "../../../components/ui/progress";
-import { HabitCard } from "../../../components/habit-card";
+import { HabitCard } from "@/components/habit-card";
 import { Spinner } from "@/components/ui/spinner";
-
-type Habit = {
-  id: string;
-  title: string;
-  description: string | null;
-  activities: { date: Date }[];
-};
+import { HabitStats } from "@/components/stats/habit-stats";
+import { Habit } from "@/types/habit";
 
 export default function DashboardPage() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -105,15 +98,13 @@ export default function DashboardPage() {
               </p>
             </div>
           ) : (
-            habits.map((habit) => (
-              <Card key={habit.id} className="p-4">
-                <p className="text-sm mb-1">{habit.title}</p>
-                <Progress
-                  value={Math.min(habit.activities.length * 10, 100)}
-                  className="h-2"
-                />
-              </Card>
-            ))
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {habits.map((habit) => (
+                  <HabitStats key={habit.id} habit={habit} />
+                ))}
+              </div>
+            </div>
           )}
         </TabsContent>
       </Tabs>

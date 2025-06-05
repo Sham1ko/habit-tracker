@@ -11,10 +11,15 @@ export async function GET() {
 
   const habits = await prisma.habit.findMany({
     where: { userId: user.id },
-    orderBy: { createdAt: "desc" },
-    include: {
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      frequency: true,
+      createdAt: true,
       activities: true,
     },
+    orderBy: { createdAt: "desc" },
   });
 
   return new Response(JSON.stringify(habits), {
