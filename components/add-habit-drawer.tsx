@@ -39,10 +39,7 @@ export function AddHabitDrawer() {
         </Button>
       </SheetTrigger>
 
-      <SheetContent
-        side="bottom"
-        className="rounded-t-xl sm:max-w-lg mx-auto p-4 min-h-[70vh]"
-      >
+      <SheetContent className="rounded-t-xl sm:max-w-lg mx-auto p-4 min-h-[70vh]">
         <SheetHeader className="text-center p-2">
           <SheetTitle className="text-lg font-semibold">
             Create Habit
