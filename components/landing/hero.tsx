@@ -5,6 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { User } from "@supabase/supabase-js";
+import { ROUTES } from "@/lib/constants/routes";
 
 export function Hero(props: {
   capsuleText: string;
@@ -50,7 +51,9 @@ export function Hero(props: {
         </p>
         <div className="flex gap-4 flex-wrap justify-center">
           <Link
-            href={loading ? "#" : user ? "/dashboard" : "/auth/login"}
+            href={
+              loading ? "#" : user ? ROUTES.APP.DASHBOARD : ROUTES.AUTH.LOGIN
+            }
             className={cn(buttonVariants({ size: "lg" }))}
           >
             {props.primaryCtaText}

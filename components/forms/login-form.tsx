@@ -3,7 +3,7 @@
 import { login, loginWithGoogle } from "@/app/actions";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { useState, useTransition, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useAppNavigation } from "@/lib/hooks/useAppNavigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -14,7 +14,7 @@ export default function LoginForm() {
   const { setUser } = useAuthStore();
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+  const { goToDashboard } = useAppNavigation();
 
   const handleLogin = useCallback(
     (formData: FormData) => {
@@ -25,11 +25,11 @@ export default function LoginForm() {
           setError(res.error.message);
         } else if (res.user) {
           setUser(res.user);
-          router.push("/dashboard");
+          goToDashboard();
         }
       });
     },
-    [setUser, router]
+    [setUser, goToDashboard]
   );
 
   return (

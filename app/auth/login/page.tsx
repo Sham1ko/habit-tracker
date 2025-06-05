@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import LoginForm from "@/components/forms/login-form";
+import { ROUTES } from "@/lib/constants/routes";
 
 export default function LoginPage() {
   return (
@@ -27,7 +28,7 @@ export default function LoginPage() {
         <CardFooter className="justify-center text-sm text-gray-600 dark:text-gray-400 flex flex-wrap gap-1 text-center">
           Don’t have an account?
           <Link
-            href="/register"
+            href={ROUTES.AUTH.REGISTER}
             className="font-semibold text-gray-800 hover:underline dark:text-gray-200"
           >
             Sign up

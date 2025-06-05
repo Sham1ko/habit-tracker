@@ -16,6 +16,7 @@ import {
 import { Separator } from "../../../components/ui/separator";
 import { Icons } from "../../../components/icons";
 import Link from "next/link";
+import { ROUTES } from "@/lib/constants/routes";
 
 const initialState = { error: "" };
 
@@ -97,7 +98,7 @@ export default function RegisterPage() {
         <CardFooter className="justify-center text-sm text-gray-600 dark:text-gray-400 flex flex-wrap gap-1 text-center">
           Already have an account?
           <Link
-            href="/login"
+            href={ROUTES.AUTH.LOGIN}
             className="font-semibold text-gray-800 hover:underline dark:text-gray-200"
           >
             Sign in
