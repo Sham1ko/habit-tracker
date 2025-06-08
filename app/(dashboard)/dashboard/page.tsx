@@ -12,12 +12,19 @@ import {
 import { HabitCard } from "@/components/habit-card";
 import { Spinner } from "@/components/ui/spinner";
 import { HabitStats } from "@/components/stats/habit-stats";
+import { EditHabitDialog } from "@/components/edit-habit-dialog";
 import { Habit } from "@/types/habit";
 
 export default function DashboardPage() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [editingHabit, setEditingHabit] = useState<{
+    id: string;
+    title: string;
+    description: string | null;
+  } | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -51,8 +58,42 @@ export default function DashboardPage() {
     setHabits(data);
   };
 
+  const handleEditHabit = (habitId: string) => {
+    const habit = habits.find((h) => h.id === habitId);
+    if (habit) {
+      setEditingHabit({
+        id: habit.id,
+        title: habit.title,
+        description: habit.description,
+      });
+      setIsEditDialogOpen(true);
+    }
+  };
+
+  const handleSaveHabit = async (
+    habitId: string,
+    data: { title: string; description: string }
+  ) => {
+    const response = await fetch("/api/habits", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: habitId,
+        ...data,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update habit");
+    }
+
+    await refreshHabits();
+  };
+
   return (
-    <main className="max-w-2xl mx-auto mt-20 space-y-4 md:px-0 px-4">
+    <main className="max-w-2xl w-full md:px-0 px-4">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Your Habits</h1>
       </div>
@@ -82,6 +123,7 @@ export default function DashboardPage() {
               <HabitCard
                 key={habit.id}
                 habit={habit}
+                onEdit={handleEditHabit}
                 onRefresh={refreshHabits}
               />
             ))
@@ -108,6 +150,18 @@ export default function DashboardPage() {
           )}
         </TabsContent>
       </Tabs>
+
+      <EditHabitDialog
+        open={isEditDialogOpen}
+        onOpenChange={(open) => {
+          setIsEditDialogOpen(open);
+          if (!open) {
+            setEditingHabit(null);
+          }
+        }}
+        habit={editingHabit}
+        onSave={handleSaveHabit}
+      />
     </main>
   );
 }
