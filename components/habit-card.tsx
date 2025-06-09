@@ -78,14 +78,14 @@ export function HabitCard({
 
         <div className="flex items-center gap-2">
           <CompleteHabitButton habitId={habit.id} onRefresh={onRefresh} />
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon">
                 <MoreVertical className="w-4 h-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => onEdit?.(habit.id)} disabled>
+              <DropdownMenuItem onClick={() => onEdit?.(habit.id)}>
                 Edit
               </DropdownMenuItem>
               <DropdownMenuItem

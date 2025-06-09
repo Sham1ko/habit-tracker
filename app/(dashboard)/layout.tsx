@@ -15,8 +15,10 @@ export default function DashboardLayout({
         {/* Desktop-only navbar */}
         <DesktopNavbar />
 
-        {/* Main content */}
-        <main className="flex-1">{children}</main>
+        {/* Main content with proper spacing for fixed navbar */}
+        <div className="flex-1 flex justify-center pt-16 md:pt-20 pb-16 md:pb-4 bg-gradient-to-br from-background via-background to-muted/20">
+          {children}
+        </div>
 
         {/* Mobile-only navbar */}
         <MobileNavbar />

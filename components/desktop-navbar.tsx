@@ -34,10 +34,20 @@ export function DesktopNavbar() {
   const { user } = useAuthStore();
 
   const primaryNav = [
-    { href: ROUTES.APP.DASHBOARD, label: "Overview", icon: Home },
-    { href: ROUTES.APP.NEW_HABIT, label: "New Habit", icon: PlusCircle },
-    { href: "/calendar", label: "Calendar", icon: Calendar },
-    { href: "/analytics", label: "Analytics", icon: BarChart2 },
+    {
+      href: ROUTES.APP.DASHBOARD,
+      label: "Overview",
+      icon: Home,
+      disabled: false,
+    },
+    {
+      href: ROUTES.APP.NEW_HABIT,
+      label: "New Habit",
+      icon: PlusCircle,
+      disabled: false,
+    },
+    { href: "/calendar", label: "Calendar", icon: Calendar, disabled: true },
+    { href: "/analytics", label: "Analytics", icon: BarChart2, disabled: true },
   ];
 
   const userInitials = user?.email
@@ -56,20 +66,32 @@ export function DesktopNavbar() {
 
         <NavigationMenu>
           <NavigationMenuList className="gap-2">
-            {primaryNav.map(({ href, label, icon: Icon }) => (
+            {primaryNav.map(({ href, label, icon: Icon, disabled }) => (
               <NavigationMenuItem key={href}>
-                <Link
-                  href={href}
-                  className={cn(
-                    "flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors rounded-md",
-                    "text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800",
-                    pathname === href &&
-                      "text-black dark:text-white bg-gray-100 dark:bg-zinc-800"
-                  )}
-                >
-                  <Icon className="w-4 h-4" />
-                  {label}
-                </Link>
+                {disabled ? (
+                  <div
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md cursor-not-allowed",
+                      "text-gray-400 dark:text-zinc-600"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </div>
+                ) : (
+                  <Link
+                    href={href}
+                    className={cn(
+                      "flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors rounded-md",
+                      "text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800",
+                      pathname === href &&
+                        "text-black dark:text-white bg-gray-100 dark:bg-zinc-800"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </Link>
+                )}
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>

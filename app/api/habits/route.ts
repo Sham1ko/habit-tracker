@@ -29,3 +29,26 @@ export async function GET() {
     },
   });
 }
+
+export async function PATCH(request: Request) {
+  const supabase = await createServerSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return new Response("Unauthorized", { status: 401 });
+
+  const { id, ...data } = await request.json();
+
+  const habit = await prisma.habit.update({
+    where: { id, userId: user.id },
+    data,
+  });
+
+  return new Response(JSON.stringify(habit), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
