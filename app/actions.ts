@@ -4,7 +4,6 @@ import { createServerSupabaseClient } from "../lib/supabase/server";
 import { redirect } from "next/navigation";
 import prisma from "../prisma/db";
 import { revalidatePath } from "next/cache";
-import { startOfToday } from "date-fns";
 
 export async function logout() {
   const supabase = await createServerSupabaseClient();
@@ -84,7 +83,8 @@ export async function createHabit(_: unknown, formData: FormData) {
     await prisma.activity.create({
       data: {
         habitId: newHabit.id,
-        date: startOfToday(), //
+        // use UTC date to match completion logic
+        date: getTodayUTC(),
       },
     });
   } catch (error) {
