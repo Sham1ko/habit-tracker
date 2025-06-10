@@ -7,6 +7,7 @@ export const ROUTES = {
     DASHBOARD: "/dashboard",
     SETTINGS: "/settings",
     NEW_HABIT: "/habits/new",
+    ANALYTICS: "/analytics",
   },
   LANDING: {
     HOME: "/",

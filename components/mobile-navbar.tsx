@@ -34,7 +34,12 @@ export function MobileNavbar() {
       disabled: false,
     },
     { href: "/calendar", label: "Calendar", icon: Calendar, disabled: true },
-    { href: "/analytics", label: "Analytics", icon: BarChart2, disabled: true },
+    {
+      href: ROUTES.APP.ANALYTICS,
+      label: "Analytics",
+      icon: BarChart2,
+      disabled: false,
+    },
   ];
 
   return (
