@@ -121,6 +121,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer utilities {
   .container {
     width: 100%;

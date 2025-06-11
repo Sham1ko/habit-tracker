@@ -34,7 +34,7 @@ export function Hero(props: {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center">
+    <section className="relative min-h-screen flex items-center">
       <div className="container flex max-w-[64rem] flex-col items-center gap-4 text-center">
         <Link
           href={props.capsuleLink}
@@ -73,6 +73,25 @@ export function Hero(props: {
           <p className="text-sm text-muted-foreground mt-4">{props.credits}</p>
         )}
       </div>
+      <a
+        href="#features"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
+        aria-label="Scroll to features"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-6 w-6 text-muted-foreground"
+        >
+          <path d="M12 5v14" />
+          <path d="m19 12-7 7-7-7" />
+        </svg>
+      </a>
     </section>
   );
 }
