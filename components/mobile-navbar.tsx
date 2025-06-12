@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { cn } from "../lib/utils";
-import { ROUTES } from "@/lib/constants/routes";
 import { APP_NAV_ITEMS } from "@/lib/constants/navigation";
 import {
   Sheet,
