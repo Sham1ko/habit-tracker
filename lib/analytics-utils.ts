@@ -7,6 +7,8 @@ export interface AnalyticsStats {
   totalCheckIns: number;
   overallCompletionRate: number;
   longestStreak: number;
+  /** Consecutive days with at least one check-in across all habits */
+  globalStreak: number;
   checkInsThisWeek: number;
   bestHabit?: {
     id: string;
@@ -37,6 +39,10 @@ export function getAnalyticsStats(habits: Habit[]): AnalyticsStats {
     return streak > max ? streak : max;
   }, 0);
 
+  const globalStreak = calculateStreak(
+    habits.flatMap((habit) => habit.activities),
+  );
+
   let bestHabit: AnalyticsStats["bestHabit"];
   for (const habit of habits) {
     const rate = getHabitStats(habit).completionRate;
@@ -61,6 +67,7 @@ export function getAnalyticsStats(habits: Habit[]): AnalyticsStats {
     totalCheckIns,
     overallCompletionRate,
     longestStreak,
+    globalStreak,
     checkInsThisWeek,
     bestHabit,
   };
