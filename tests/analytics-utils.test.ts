@@ -42,6 +42,7 @@ describe("getAnalyticsStats", () => {
     expect(stats.totalHabits).toBe(2);
     expect(stats.totalCheckIns).toBe(3);
     expect(stats.longestStreak).toBe(2);
+    expect(stats.globalStreak).toBe(3);
     expect(stats.checkInsThisWeek).toBe(3);
     expect(stats.overallCompletionRate).toBe(15);
     expect(stats.bestHabit?.id).toBe("h1");
