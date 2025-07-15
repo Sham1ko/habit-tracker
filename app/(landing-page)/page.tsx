@@ -1,5 +1,6 @@
 import { FeatureGrid } from "../../components/landing/features";
 import { Hero } from "@/components/landing/hero";
+import { CalendarDemo } from "@/components/landing/calendar-demo";
 
 export default async function IndexPage() {
   return (
@@ -115,6 +116,8 @@ export default async function IndexPage() {
           },
         ]}
       />
+
+      <CalendarDemo />
     </>
   );
 }
