@@ -112,7 +112,7 @@ export default function DashboardPage() {
           ) : habits.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-muted-foreground mb-4">
-                You don’t have any habits yet.
+                You don&apos;t have any habits yet.
               </p>
               <Link href="/habits/new">
                 <Button>Add Your First Habit</Button>
