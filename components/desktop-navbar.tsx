@@ -22,6 +22,7 @@ import {
 } from "./ui/dropdown-menu";
 import { useAuthStore } from "@/lib/stores/auth-store";
 import { ColorModeSwitcher } from "./landing/color-mode-switcher";
+import { logout } from "@/app/actions";
 
 export function DesktopNavbar() {
   const pathname = usePathname();
@@ -50,7 +51,7 @@ export function DesktopNavbar() {
                     <div
                       className={cn(
                         "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md cursor-not-allowed",
-                        "text-gray-400 dark:text-zinc-600",
+                        "text-gray-400 dark:text-zinc-600"
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -63,7 +64,7 @@ export function DesktopNavbar() {
                         "flex items-center gap-2 px-3 py-2 text-sm font-medium transition-colors rounded-md",
                         "text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800",
                         pathname === href &&
-                          "text-black dark:text-white bg-gray-100 dark:bg-zinc-800",
+                          "text-black dark:text-white bg-gray-100 dark:bg-zinc-800"
                       )}
                     >
                       <Icon className="w-4 h-4" />
@@ -89,19 +90,29 @@ export function DesktopNavbar() {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link
                   href={ROUTES.APP.SETTINGS}
-                  className="flex items-center gap-2 w-full"
+                  className="w-full flex items-center gap-2"
                 >
                   <Settings className="w-4 h-4" />
                   Settings
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="text-red-600 dark:text-red-400">
-                <LogOut className="w-4 h-4" />
-                Sign out
-              </DropdownMenuItem>
+              <form action={logout} className="w-full">
+                <DropdownMenuItem
+                  asChild
+                  className="text-red-600 dark:text-red-400"
+                >
+                  <button
+                    type="submit"
+                    className="w-full flex items-center gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign out
+                  </button>
+                </DropdownMenuItem>
+              </form>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

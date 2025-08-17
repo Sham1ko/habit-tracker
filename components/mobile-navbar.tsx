@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
 import { cn } from "../lib/utils";
 import { APP_NAV_ITEMS } from "@/lib/constants/navigation";
 import {
@@ -15,6 +15,7 @@ import {
 import { Button } from "./ui/button";
 import { ColorModeSwitcher } from "./landing/color-mode-switcher";
 import { useAuthStore } from "@/lib/stores/auth-store";
+import { logout } from "@/app/actions";
 
 export function MobileNavbar() {
   const pathname = usePathname();
@@ -32,7 +33,7 @@ export function MobileNavbar() {
                   key={href}
                   className={cn(
                     "flex flex-col items-center justify-center flex-1 h-full cursor-not-allowed",
-                    "text-gray-300 dark:text-zinc-700",
+                    "text-gray-300 dark:text-zinc-700"
                   )}
                 >
                   <Icon className="h-5 w-5 mb-1" />
@@ -45,13 +46,13 @@ export function MobileNavbar() {
                   className={cn(
                     "flex flex-col items-center justify-center flex-1 h-full transition-colors",
                     "text-gray-500 dark:text-zinc-400 hover:text-black dark:hover:text-white",
-                    pathname === href && "text-black dark:text-white",
+                    pathname === href && "text-black dark:text-white"
                   )}
                 >
                   <Icon className="h-5 w-5 mb-1" />
                   <span className="text-xs font-medium">{label}</span>
                 </Link>
-              ),
+              )
           )}
         </div>
       </nav>
@@ -85,7 +86,7 @@ export function MobileNavbar() {
                     key={href}
                     className={cn(
                       "flex items-center gap-2 w-full p-2 text-sm font-medium rounded-md cursor-not-allowed",
-                      "text-gray-400 dark:text-zinc-600",
+                      "text-gray-400 dark:text-zinc-600"
                     )}
                   >
                     <Icon className="h-4 w-4" />
@@ -99,18 +100,24 @@ export function MobileNavbar() {
                       "flex items-center gap-2 w-full p-2 text-sm font-medium rounded-md transition-colors",
                       "text-gray-600 dark:text-zinc-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-zinc-800",
                       pathname === href &&
-                        "text-black dark:text-white bg-gray-100 dark:bg-zinc-800",
+                        "text-black dark:text-white bg-gray-100 dark:bg-zinc-800"
                     )}
                   >
                     <Icon className="h-4 w-4" />
                     {label}
                   </Link>
-                ),
+                )
               )}
             </div>
-            <Button variant="destructive" className="w-full mt-8">
-              Sign out
-            </Button>
+            <form action={logout} className="w-full mt-8">
+              <button
+                type="submit"
+                className="w-full flex items-center gap-2 p-2 text-sm font-medium rounded-md transition-colors text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-zinc-800"
+              >
+                <LogOut className="h-4 w-4" />
+                Sign out
+              </button>
+            </form>
           </div>
         </SheetContent>
       </Sheet>
