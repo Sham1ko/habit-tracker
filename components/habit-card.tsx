@@ -49,6 +49,8 @@ type Habit = {
   activities: { date: Date }[];
 };
 
+let hasHydratedOnce = false;
+
 export function HabitCard({
   habit,
   onEdit,
@@ -59,11 +61,16 @@ export function HabitCard({
   onRefresh: () => void;
 }) {
   const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const [hydrated, setHydrated] = useState<boolean>(hasHydratedOnce);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setMounted(true), 100);
-    return () => clearTimeout(timeout);
+    if (!hasHydratedOnce) {
+      const timeout = setTimeout(() => {
+        hasHydratedOnce = true;
+        setHydrated(true);
+      }, 100);
+      return () => clearTimeout(timeout);
+    }
   }, []);
 
   return (
@@ -100,7 +107,7 @@ export function HabitCard({
       </div>
 
       <div className="mt-4">
-        {mounted ? (
+        {hydrated ? (
           <ActivityCalendar
             data={mapActivitiesToCalendarData(habit.activities)}
             colorScheme={
