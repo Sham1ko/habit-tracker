@@ -75,7 +75,10 @@ export function EditHabitDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent
+        className="sm:max-w-[425px]"
+        aria-describedby="edit-habit-dialog-description"
+      >
         <DialogHeader>
           <DialogTitle>Edit Habit</DialogTitle>
           <DialogDescription>
