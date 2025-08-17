@@ -34,3 +34,15 @@ model Activity {
 
   @@unique([habitId, date]) // только одна активность в день
 }
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String?
+  message   String
+  type      String   @default("general")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
