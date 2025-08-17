@@ -1,13 +1,31 @@
 "use client";
-import { Button } from "../../../components/ui/button";
-import { logout } from "../../actions";
-import { Switch } from "../../../components/ui/switch";
+import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-import { createClient } from "../../../lib/supabase/client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+import { logout } from "@/app/actions";
+import { createClient } from "@/lib/supabase/client";
 
 export default function SettingsPage() {
-  const { setTheme, resolvedTheme } = useTheme();
+  const { setTheme, theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
@@ -25,36 +43,77 @@ export default function SettingsPage() {
     getUser();
   }, []);
 
+  const userInitial = useMemo(() => {
+    if (!userEmail || userEmail.length === 0) return "U";
+    return userEmail.charAt(0).toUpperCase();
+  }, [userEmail]);
+
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col max-w-2xl mx-auto space-y-4 mt-10 md:mt-20 md:px-0 px-4">
+    <div className="mx-auto w-full max-w-4xl px-4 md:px-6 mt-10 md:mt-16">
       <h1 className="text-3xl font-bold">Settings</h1>
 
-      {/* User info */}
-      <div className="rounded-lg border p-4">
-        <p className="text-sm text-muted-foreground">Logged in as:</p>
-        <p className="font-medium">{userEmail || "Unknown user"}</p>
-      </div>
+      <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle>Account</CardTitle>
+            <CardDescription>Your account details</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <Avatar>
+                <AvatarFallback>{userInitial}</AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="text-sm text-muted-foreground">Logged in as</p>
+                <p className="font-medium break-all">
+                  {userEmail || "Unknown user"}
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-      {/* Theme toggle */}
-      <div className="flex items-center justify-between rounded-lg border p-4">
-        <span className="text-sm font-medium">Dark mode</span>
-        <Switch
-          checked={resolvedTheme === "dark"}
-          onCheckedChange={(val) => setTheme(val ? "dark" : "light")}
-        />
-      </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Appearance</CardTitle>
+            <CardDescription>Personalize your theme</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="theme">Theme</Label>
+              <Select value={theme} onValueChange={(val) => setTheme(val)}>
+                <SelectTrigger id="theme" className="w-full md:w-56">
+                  <SelectValue placeholder="Select theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground">
+                Current: <span className="font-medium">{resolvedTheme}</span>
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
-      <form action={logout} className="mt-auto">
-        <Button
-          type="submit"
-          variant="destructive"
-          className="w-full bg-red-400"
-        >
-          Log out
-        </Button>
-      </form>
+        <Card>
+          <CardHeader>
+            <CardTitle>Danger zone</CardTitle>
+            <CardDescription>Sign out of your account</CardDescription>
+          </CardHeader>
+          <CardFooter>
+            <form action={logout} className="w-full">
+              <Button type="submit" variant="destructive" className="w-full">
+                Log out
+              </Button>
+            </form>
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }
