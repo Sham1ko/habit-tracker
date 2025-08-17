@@ -2,7 +2,7 @@
 
 import { ActivityCalendar } from "react-activity-calendar";
 import { useTheme } from "next-themes";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 function generateDemoData() {
   const days = 180;
@@ -20,6 +20,11 @@ function generateDemoData() {
 export function CalendarDemo() {
   const { resolvedTheme } = useTheme();
   const data = useMemo(() => generateDemoData(), []);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section className="container space-y-6 py-8 md:py-12 lg:py-24">
@@ -32,24 +37,28 @@ export function CalendarDemo() {
         </p>
       </div>
       <div className="flex justify-center">
-        <ActivityCalendar
-          data={data}
-          colorScheme={
-            resolvedTheme === "light" || resolvedTheme === "dark"
-              ? resolvedTheme
-              : undefined
-          }
-          theme={{
-            light: ["#e0e0e0", "#a3d8a3", "#78c78f", "#4dbb7f", "#26a65b"],
-            dark: [
-              "hsl(0, 0%, 22%)",
-              "#4dbb7f",
-              "#78c78f",
-              "#a3d8a3",
-              "#e0e0e0",
-            ],
-          }}
-        />
+        {mounted ? (
+          <ActivityCalendar
+            data={data}
+            colorScheme={
+              resolvedTheme === "light" || resolvedTheme === "dark"
+                ? resolvedTheme
+                : undefined
+            }
+            theme={{
+              light: ["#e0e0e0", "#a3d8a3", "#78c78f", "#4dbb7f", "#26a65b"],
+              dark: [
+                "hsl(0, 0%, 22%)",
+                "#4dbb7f",
+                "#78c78f",
+                "#a3d8a3",
+                "#e0e0e0",
+              ],
+            }}
+          />
+        ) : (
+          <div className="h-[130px] w-full max-w-[428px]" />
+        )}
       </div>
     </section>
   );
