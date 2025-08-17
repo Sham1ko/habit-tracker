@@ -80,7 +80,7 @@ export function DesktopNavbar() {
         <div className="flex items-center gap-4">
           <ColorModeSwitcher />
 
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger className="focus:outline-none">
               <Avatar className="h-8 w-8">
                 <AvatarImage src={user?.user_metadata?.avatar_url} />
